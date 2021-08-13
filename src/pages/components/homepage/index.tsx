@@ -19,7 +19,7 @@ export function HomePage() {
 					</h2>
 				</div>
 				<div>
-					<Image src="/imgHome.svg" alt="picture" width={800} height={1000} />
+					<Image src="/imgHome.svg" alt="picture" width={400} height={600} />
 				</div>
 			</div>
 		</div>
