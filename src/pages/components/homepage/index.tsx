@@ -1,6 +1,6 @@
-import styles from './styles.module.scss'
+import Image from 'next/image'
 
-import imgHome from '../../../../public/imgHome.svg'
+import styles from './styles.module.scss'
 
 export function HomePage() {
 	return (
@@ -22,8 +22,12 @@ export function HomePage() {
 							</h2>
 						</td>
 						<td>
-							<img src="imgHome.svg" alt="" />
-							{/* {imgMeditation} */}
+							<Image
+								src="/imgHome.svg"
+								alt="picture"
+								width={800}
+								height={1000}
+							/>
 						</td>
 					</tr>
 				</table>
