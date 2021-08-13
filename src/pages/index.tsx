@@ -6,7 +6,7 @@ export default function Home() {
 			<Head>
 				<title>Zen Texts</title>
 			</Head>
-			<h1>Hello World</h1>
+			<h1>Welcome</h1>
 		</>
 	)
 }
