@@ -1,3 +1,4 @@
+import { Button } from '../button'
 import styles from './styles.module.scss'
 
 export function Header() {
@@ -13,6 +14,7 @@ export function Header() {
 					</a>
 					<a href="posts">Posts</a>
 				</nav>
+				<Button></Button>
 			</div>
 		</header>
 	)
