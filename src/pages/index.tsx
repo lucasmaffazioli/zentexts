@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { HomePage } from './components/homepage'
 
 export default function Home() {
 	return (
@@ -6,7 +7,7 @@ export default function Home() {
 			<Head>
 				<title>Zen Texts</title>
 			</Head>
-			<h1>Welcome</h1>
+			<HomePage />
 		</>
 	)
 }

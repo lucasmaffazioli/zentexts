@@ -1,0 +1,21 @@
+.homeContainer {
+	display: flex;
+	align-items: center;
+	height: 85vh;
+
+	.homeContent {
+		max-width: 1180px;
+		margin: auto;
+		padding: 0 2rem;
+
+		// display: flex;
+		// align-items: center;
+
+		span {
+			color: var(--purple-500);
+		}
+		h1 {
+			font-size: 5rem;
+		}
+	}
+}
