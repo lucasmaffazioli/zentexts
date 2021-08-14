@@ -1,6 +1,6 @@
 .homeContainer {
 	margin: 0 auto;
-	height: calc(100vh - 8rem);
+	height: calc(100vh - 10rem);
 	max-width: 1120px;
 
 	.homeContent {
@@ -10,9 +10,6 @@
 		@media (max-width: 768px) {
 			grid-template-columns: repeat(1, 1fr);
 			gap: 4rem;
-			// h1 {
-			// line-height: 5rem;
-			// }
 		}
 
 		display: grid;
@@ -20,10 +17,6 @@
 		grid-template-columns: repeat(2, 1fr);
 		gap: 2rem;
 		align-items: center;
-
-		section {
-			// max-width: 500px;
-		}
 
 		span {
 			color: var(--purple-500);
@@ -35,6 +28,10 @@
 		}
 		h2 {
 			font-weight: 400;
+		}
+
+		button {
+			margin-top: 2rem;
 		}
 	}
 }

@@ -1,0 +1,14 @@
+.signInButton {
+	height: 3.3rem;
+	border-radius: 3rem;
+	border-width: 0;
+	padding: 0 4rem;
+	background-color: var(--yellow-500);
+	font-weight: bold;
+
+	transition: filter 0.2s;
+
+	&:hover {
+		filter: brightness(0.8);
+	}
+}

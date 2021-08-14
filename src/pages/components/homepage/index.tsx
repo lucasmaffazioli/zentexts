@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { SubscribeButton } from '../SubscribeButton'
 
 import styles from './styles.module.scss'
 
@@ -22,6 +23,7 @@ export function HomePage() {
 						<h2>
 							Get acess to all the publications for <span>$9,90 month</span>
 						</h2>
+						<SubscribeButton />
 					</section>
 					<Image src="/imgHome.svg" alt="picture" width={300} height={550} />
 				</div>

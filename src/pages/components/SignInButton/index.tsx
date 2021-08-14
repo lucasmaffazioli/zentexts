@@ -1,9 +1,9 @@
 import styles from './styles.module.scss'
 
-import { FaGit, FaGithub } from 'react-icons/fa'
+import { FaGithub } from 'react-icons/fa'
 import { FiX } from 'react-icons/fi'
 
-export function Button() {
+export function SignInButton() {
 	let isUserLoggedIn = true
 
 	return isUserLoggedIn ? (
