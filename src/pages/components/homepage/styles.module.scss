@@ -1,31 +1,40 @@
 .homeContainer {
-	display: flex;
-	align-items: center;
-	height: 85vh;
+	margin: 0 auto;
+	height: calc(100vh - 8rem);
+	max-width: 1120px;
 
 	.homeContent {
-		max-width: 1180px;
 		margin: 2rem auto auto auto;
 		padding: 0 2rem;
 
 		@media (max-width: 768px) {
 			grid-template-columns: repeat(1, 1fr);
 			gap: 4rem;
-			h1 {
-				line-height: 5rem;
-			}
+			// h1 {
+			// line-height: 5rem;
+			// }
 		}
 
 		display: grid;
+		justify-content: space-between;
 		grid-template-columns: repeat(2, 1fr);
 		gap: 2rem;
 		align-items: center;
+
+		section {
+			// max-width: 500px;
+		}
 
 		span {
 			color: var(--purple-500);
 		}
 		h1 {
 			font-size: 5rem;
+			line-height: 5rem;
+			font-weight: 900;
+		}
+		h2 {
+			font-weight: 400;
 		}
 	}
 }
