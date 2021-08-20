@@ -1,19 +1,46 @@
+import { query as q } from 'faunadb'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/client'
 import { stripe } from '../../services/stripe'
+import { fauna } from '../../services/fauna'
+
+type FaunaUser = {
+	ref: {
+		id: string
+	}
+	data: {
+		stripe_customer_id: string
+	}
+}
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	if (req.method === 'POST') {
 		const session = await getSession({ req })
 
-		const stripeCustomer = await stripe.customers.create({
-			email: session.user.email,
-			// metadata
-		})
+		const faunaUser = await fauna.query<FaunaUser>(
+			q.Get(q.Match(q.Index('user_by_email'), q.Casefold(session.user.email)))
+		)
+
+		let stripeCustomerId = faunaUser.data.stripe_customer_id
+
+		if (!stripeCustomerId) {
+			const stripeCustomer = await stripe.customers.create({
+				email: session.user.email,
+				// metadata
+			})
+
+			stripeCustomerId = stripeCustomer.id
+
+			await fauna.query(
+				q.Update(q.Ref(q.Collection('users'), faunaUser.ref.id), {
+					data: { stripe_customer_id: stripeCustomerId },
+				})
+			)
+		}
 
 		const stripeCheckoutSession = await stripe.checkout.sessions.create({
-			customer: stripeCustomer.id,
+			customer: stripeCustomerId,
 			payment_method_types: ['card'],
 			billing_address_collection: 'required',
 			line_items: [{ price: 'price_1JOeiCL7uhZFf3CIM78F0shL', quantity: 1 }],

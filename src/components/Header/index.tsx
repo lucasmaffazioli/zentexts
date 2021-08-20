@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { LoginButton } from '../LoginButton'
 import styles from './styles.module.scss'
 
@@ -9,10 +10,12 @@ export function Header() {
 					zen<span>.</span>texts
 				</h1>
 				<nav>
-					<a className={styles.active} href="home">
-						Home
-					</a>
-					<a href="posts">Posts</a>
+					<Link href="/">
+						<a className={styles.active}>Home</a>
+					</Link>
+					<Link href="posts">
+						<a>Posts</a>
+					</Link>
 				</nav>
 				<LoginButton></LoginButton>
 			</div>
