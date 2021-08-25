@@ -5,11 +5,12 @@ import { RichText } from 'prismic-dom';
 import Prismic from '@prismicio/client';
 import styles from './styles.module.scss';
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/client';
 import { useRouter } from 'next/dist/client/router';
 
 interface PostsProps {
+  total_pages: number;
   next_page: string;
   posts: [
     {
@@ -21,8 +22,24 @@ interface PostsProps {
   ];
 }
 
-export default function Posts({ next_page, posts }: PostsProps) {
+export default function Posts({ total_pages, next_page, posts }: PostsProps) {
   const [session] = useSession();
+  const [currentPage, setCurrentPage] = useState(0);
+
+  async function getNextPage() {
+    console.log(next_page);
+
+    fetch(next_page)
+      .then(response => response.json())
+      .then(data => console.log(data));
+  }
+
+  //   function getPagination() {
+  for (let step = 0; step < total_pages; step++) {
+    console.log(step);
+  }
+
+  //   }
 
   return (
     <>
@@ -36,8 +53,8 @@ export default function Posts({ next_page, posts }: PostsProps) {
               key={post.slug}
               href={
                 session?.activeSubscription
-                  ? `/posts/${post.slug}`
-                  : `/posts/preview/${post.slug}`
+                  ? `/post/${post.slug}`
+                  : `/post/preview/${post.slug}`
               }
             >
               <a>
@@ -48,7 +65,7 @@ export default function Posts({ next_page, posts }: PostsProps) {
             </Link>
           ))}
         </div>
-        {next_page && <p>Load more articles</p>}
+        {next_page && <p onClick={getNextPage}>Load more articles</p>}
       </main>
     </>
   );
@@ -60,13 +77,16 @@ export const getStaticProps: GetStaticProps = async () => {
     Prismic.predicates.at('document.type', 'post'),
     {
       fetch: ['publication.title', 'publication.content'],
+
       pageSize: 1,
+      page: 1,
     }
   );
 
   console.log(documents);
 
   const posts = documents.results.map(post => {
+    3;
     return {
       slug: post.uid,
       title: RichText.asText(post.data.title),
@@ -86,6 +106,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
+      total_pages: documents.total_pages,
       next_page: documents.next_page,
       posts,
     },
