@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Link from 'next/link';
 import { getPrismiscClient } from '../../services/prismic';
 import { RichText } from 'prismic-dom';
@@ -71,7 +71,14 @@ export default function Posts({ total_pages, next_page, posts }: PostsProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const PrismicClient = getPrismiscClient();
   const documents = await PrismicClient.query(
     Prismic.predicates.at('document.type', 'post'),
@@ -79,7 +86,7 @@ export const getStaticProps: GetStaticProps = async () => {
       fetch: ['publication.title', 'publication.content'],
 
       pageSize: 1,
-      page: 1,
+      page: params?.page,
     }
   );
 
