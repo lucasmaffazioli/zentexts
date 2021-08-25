@@ -3,6 +3,7 @@ import { getPrismiscClient } from '../../services/prismic'
 import { RichText } from 'prismic-dom'
 import Prismic from '@prismicio/client'
 import styles from './styles.module.scss'
+import Head from 'next/head'
 
 interface PostsProps {
 	posts: [
@@ -24,18 +25,23 @@ export default function Posts({ posts }: PostsProps) {
 	}
 
 	return (
-		<main className={styles.container}>
-			<div className={styles.posts}>
-				{posts.map((post) => (
-					<a key={post.slug} href="">
-						<time>{post.updatedAt}</time>
-						<strong>{post.title}</strong>
-						<p>{post.excerp}</p>
-					</a>
-				))}
-			</div>
-			{/* <p>Pages: {documents.total_pages}</p> */}
-		</main>
+		<>
+			<Head>
+				<title>Zen Texts | Posts</title>
+			</Head>
+			<main className={styles.container}>
+				<div className={styles.posts}>
+					{posts.map((post) => (
+						<a key={post.slug} href="">
+							<time>{post.updatedAt}</time>
+							<strong>{post.title}</strong>
+							<p>{post.excerp}</p>
+						</a>
+					))}
+				</div>
+				{/* <p>Pages: {documents.total_pages}</p> */}
+			</main>
+		</>
 	)
 }
 

@@ -1,4 +1,6 @@
+import { useRouter } from 'next/dist/client/router'
 import Link from 'next/link'
+import { ActiveLink } from '../ActiveLink'
 import { LoginButton } from '../LoginButton'
 import styles from './styles.module.scss'
 
@@ -10,12 +12,12 @@ export function Header() {
 					zen<span>.</span>texts
 				</h1>
 				<nav>
-					<Link href="/">
-						<a className={styles.active}>Home</a>
-					</Link>
-					<Link href="/posts">
+					<ActiveLink activeClassName={styles.active} href="/">
+						<a>Home</a>
+					</ActiveLink>
+					<ActiveLink activeClassName={styles.active} href="/posts" prefetch>
 						<a>Posts</a>
-					</Link>
+					</ActiveLink>
 				</nav>
 				<LoginButton></LoginButton>
 			</div>
