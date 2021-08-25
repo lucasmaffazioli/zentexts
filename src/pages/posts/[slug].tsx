@@ -41,37 +41,43 @@ export const getServerSideProps: GetServerSideProps = async ({
 	req,
 	params,
 }) => {
-	const session = await getSession({ req })
-	const slug = params?.slug
+	try {
+		const session = await getSession({ req })
+		const slug = params?.slug
 
-	if (!session?.activeSubscription) {
-		return {
-			redirect: {
-				destination: '/',
-				permanent: false,
-			},
-		}
-	}
-
-	const prismic = getPrismiscClient(req)
-
-	const response = await prismic.getByUID('post', String(slug), {})
-
-	const post = {
-		slug,
-		title: RichText.asText(response.data.title),
-		content: RichText.asHtml(response.data.content),
-		updatedAt: new Date(response.last_publication_date).toLocaleDateString(
-			'pt-BR',
-			{
-				day: '2-digit',
-				month: 'long',
-				year: 'numeric',
+		if (!session?.activeSubscription) {
+			return {
+				redirect: {
+					destination: '/',
+					permanent: false,
+				},
 			}
-		),
-	}
+		}
 
-	return {
-		props: { post },
+		const prismic = getPrismiscClient(req)
+
+		const response = await prismic.getByUID('post', String(slug), {})
+
+		const post = {
+			slug,
+			title: RichText.asText(response.data.title),
+			content: RichText.asHtml(response.data.content),
+			updatedAt: new Date(response.last_publication_date).toLocaleDateString(
+				'pt-BR',
+				{
+					day: '2-digit',
+					month: 'long',
+					year: 'numeric',
+				}
+			),
+		}
+
+		return {
+			props: { post },
+		}
+	} catch {
+		return {
+			notFound: true,
+		}
 	}
 }

@@ -1,4 +1,4 @@
-import { GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import { useSession } from 'next-auth/client'
 import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
@@ -56,8 +56,11 @@ export default function PostPreview({ post }: PosPreviewProps) {
 	)
 }
 
-export const getStaticPaths = () => {
-	return { paths: [], fallback: 'blocking' }
+export const getStaticPaths: GetStaticPaths = async () => {
+	return {
+		paths: [],
+		fallback: 'blocking',
+	}
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
@@ -67,26 +70,29 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 	const response = await prismic.getByUID('post', String(slug), {})
 
-	console.log('response!!!')
-	// console.log(response)
+	if (response) {
+		const post = {
+			slug,
+			title: RichText.asText(response.data.title),
+			content: RichText.asHtml(response.data.content.splice(0, 2)),
+			updatedAt: new Date(response.last_publication_date).toLocaleDateString(
+				'pt-BR',
+				{
+					day: '2-digit',
+					month: 'long',
+					year: 'numeric',
+				}
+			),
+		}
 
-	const post = {
-		slug,
-		title: RichText.asText(response.data.title),
-		content: RichText.asHtml(response.data.content.splice(0, 2)),
-		updatedAt: new Date(response.last_publication_date).toLocaleDateString(
-			'pt-BR',
-			{
-				day: '2-digit',
-				month: 'long',
-				year: 'numeric',
-			}
-		),
-	}
+		return {
+			props: { post },
 
-	return {
-		props: { post },
-
-		revalidate: 60 * 60 * 12, // 24 hours
+			revalidate: 60 * 30, // 30 minutes
+		}
+	} else {
+		return {
+			notFound: true,
+		}
 	}
 }
