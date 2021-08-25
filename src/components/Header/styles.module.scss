@@ -1,86 +1,88 @@
 .headerContainer {
-	min-height: 5rem;
-	border-bottom: 1px solid var(--gray-800);
-	margin-bottom: 4rem;
+  min-height: 5rem;
+  border-bottom: 1px solid var(--gray-800);
+  margin-bottom: 4rem;
 }
 
 .headerContent {
-	max-width: 1120px;
-	margin: 0 auto;
-	min-height: 5rem;
-	padding: 0 2rem;
+  max-width: 1120px;
+  margin: 0 auto;
+  min-height: 5rem;
+  padding: 0 2rem;
 
-	display: flex;
-	align-items: center;
+  display: flex;
+  align-items: center;
 
-	@media (max-width: 768px) {
-		& {
-			flex-direction: column;
-		}
+  @media (max-width: 768px) {
+    & {
+      flex-direction: column;
+    }
 
-		h1 {
-			position: absolute;
-			left: 2rem;
-			top: 1rem;
-		}
+    h1 {
+      position: absolute;
+      left: 2rem;
+      top: 1rem;
+    }
 
-		button {
-			position: absolute;
-			right: 2rem;
-			top: 1rem;
-		}
+    button {
+      position: absolute;
+      right: 2rem;
+      top: 1rem;
+    }
 
-		nav {
-			margin-top: 5rem;
-		}
-	}
+    nav {
+      margin-top: 5rem;
+    }
+  }
 
-	// display: grid;
-	// grid-template-columns: repeat(4, 1fr);
-	// gap: 2rem;
-	h1 {
-		margin-right: 5rem;
-	}
-	h1 span {
-		color: var(--cyan-500);
-	}
+  h1 {
+    user-select: none;
+    margin-right: 5rem;
+    font-family: 'Ubuntu', sans-serif;
 
-	nav {
-		height: 5rem;
-		line-height: 5rem;
+    span {
+      font-family: 'Ubuntu', sans-serif;
+      color: var(--purple-500);
+      font-size: 2.5rem;
+    }
+  }
 
-		a {
-			display: inline-block;
-			position: relative;
-			padding: 0 0.5rem;
-			height: 5rem;
-			color: var(--gray-300);
+  nav {
+    height: 5rem;
+    line-height: 5rem;
 
-			transition: color 0.2s;
+    a {
+      display: inline-block;
+      position: relative;
+      padding: 0 0.5rem;
+      height: 5rem;
+      color: var(--gray-300);
 
-			& + a {
-				margin-left: 2rem;
-			}
+      transition: color 0.2s;
 
-			&:hover {
-				color: var(--white);
-			}
+      & + a {
+        margin-left: 2rem;
+      }
 
-			&.active {
-				color: var(--white);
-				font-weight: bold;
+      &:hover {
+        color: var(--white);
+      }
 
-				&::after {
-					content: '';
-					width: 100%;
-					height: 3px;
-					background-color: var(--yellow-500);
-					position: absolute;
-					bottom: 1px;
-					left: 0px;
-					border-radius: 3px 3px 0 0;
-				}
-			}
-		}
-	}
+      &.active {
+        color: var(--white);
+        font-weight: bold;
+
+        &::after {
+          content: '';
+          width: 100%;
+          height: 3px;
+          background-color: var(--yellow-500);
+          position: absolute;
+          bottom: 1px;
+          left: 0px;
+          border-radius: 3px 3px 0 0;
+        }
+      }
+    }
+  }
 }
