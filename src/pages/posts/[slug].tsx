@@ -42,9 +42,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 	params,
 }) => {
 	const session = await getSession({ req })
-	const { slug } = params
+	const slug = params?.slug
 
-	if (!session.activeSubscription) {
+	if (!session?.activeSubscription) {
 		return {
 			redirect: {
 				destination: '/',
@@ -71,5 +71,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 		),
 	}
 
-	return { props: { post } }
+	return {
+		props: { post },
+	}
 }
