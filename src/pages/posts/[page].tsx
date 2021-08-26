@@ -5,13 +5,17 @@ import { RichText } from 'prismic-dom';
 import Prismic from '@prismicio/client';
 import styles from './styles.module.scss';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { ReactElement, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/client';
 import { useRouter } from 'next/dist/client/router';
 
 interface PostsProps {
-  total_pages: number;
-  next_page: string;
+  paginas: [
+    {
+      page: number;
+      isActive: boolean;
+    }
+  ];
   posts: [
     {
       slug: string;
@@ -22,24 +26,12 @@ interface PostsProps {
   ];
 }
 
-export default function Posts({ total_pages, next_page, posts }: PostsProps) {
+export default function Posts({ paginas, posts }: PostsProps) {
   const [session] = useSession();
-  const [currentPage, setCurrentPage] = useState(0);
+  // const [currentPage, setCurrentPage] = useState(0);
 
-  async function getNextPage() {
-    console.log(next_page);
-
-    fetch(next_page)
-      .then(response => response.json())
-      .then(data => console.log(data));
-  }
-
-  //   function getPagination() {
-  for (let step = 0; step < total_pages; step++) {
-    console.log(step);
-  }
-
-  //   }
+  console.log('lalalal');
+  console.log(paginas);
 
   return (
     <>
@@ -65,7 +57,15 @@ export default function Posts({ total_pages, next_page, posts }: PostsProps) {
             </Link>
           ))}
         </div>
-        {next_page && <p onClick={getNextPage}>Load more articles</p>}
+        <div className={styles.paginationBar}>
+          {paginas.map(pagina => (
+            <Link key={pagina.page} href={pagina.page.toString()}>
+              <a className={pagina.isActive && styles.activePage}>
+                {pagina.page}
+              </a>
+            </Link>
+          ))}
+        </div>
       </main>
     </>
   );
@@ -85,7 +85,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     {
       fetch: ['publication.title', 'publication.content'],
 
-      pageSize: 1,
+      pageSize: 5,
       page: params?.page,
     }
   );
@@ -97,9 +97,23 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return {
       slug: post.uid,
       title: RichText.asText(post.data.title),
-      excerp:
-        post.data.content.find(content => content.type === 'paragraph')?.text +
-          '...' ?? '',
+      excerp: post.data.content
+        .filter(content => content.type === 'paragraph')
+        .map((paragraph, index) => {
+          let text = paragraph?.text ?? '';
+          if (index === 2) {
+            const regex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+            while (true) {
+              if (regex.test(text[text.length - 1])) {
+                text = text.substr(0, text.length - 1);
+              } else {
+                break;
+              }
+            }
+            text += '...';
+          }
+          return index < 3 ? text + ' ' : '';
+        }),
       updatedAt: new Date(post.last_publication_date).toLocaleDateString(
         'pt-BR',
         {
@@ -111,10 +125,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   });
 
+  let paginas = [];
+
+  for (let step = 1; step <= documents.total_pages; step++) {
+    paginas.push({
+      page: step,
+      isActive: step === documents.page,
+    });
+  }
+
+  console.log(paginas);
+
   return {
     props: {
-      total_pages: documents.total_pages,
-      next_page: documents.next_page,
+      paginas,
       posts,
     },
     revalidate: 60 * 60 * 2, // 2 hours

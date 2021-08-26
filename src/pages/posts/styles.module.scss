@@ -1,44 +1,77 @@
 .container {
-	margin: 0 auto;
-	max-width: 1120px;
-	.posts {
-		max-width: 720px;
-		margin: 5rem auto 0;
+  margin: 0 auto;
+  max-width: 1120px;
+  .posts {
+    max-width: 720px;
+    margin: 5rem auto 0;
 
-		a {
-			&:hover {
-				color: var(--yellow-500);
-				transition: color 0.2s;
-			}
+    a {
+      &:hover {
+        color: var(--yellow-500);
+        transition: color 0.2s;
+      }
 
-			display: block;
+      display: block;
 
-			& + a {
-				margin-top: 2rem;
-				padding-top: 2rem;
-				border-top: 1px solid var(--gray-700);
-			}
+      & + a {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--gray-700);
+      }
 
-			time {
-				font-size: 1rem;
-				display: flex;
-				align-items: center;
-				color: var(--gray-300);
-			}
-		}
+      time {
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        color: var(--gray-300);
+      }
+    }
 
-		strong {
-			display: block;
-			font-size: 1.5rem;
-			margin-top: 1rem;
-			line-height: 2rem;
-		}
+    strong {
+      display: block;
+      font-size: 1.5rem;
+      margin-top: 1rem;
+      line-height: 2rem;
+    }
 
-		p {
-			color: var(--gray-300);
-			margin-top: 0.5rem;
-			line-height: 1.625rem;
-			max-height: 250px;
-		}
-	}
+    p {
+      color: var(--gray-300);
+      margin-top: 0.5rem;
+      line-height: 1.625rem;
+      max-height: 250px;
+    }
+  }
+
+  .paginationBar {
+    max-width: 720px;
+    margin: 5rem auto 0;
+    display: flex;
+    justify-content: center;
+
+    a {
+      width: 4rem;
+      height: 4rem;
+      padding: 1rem;
+      text-align: center;
+      background: var(--gray-850);
+      border-radius: 50%;
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin: 4rem 0 2rem;
+      transition: filter 0.2s;
+
+      margin-left: 0.5rem;
+
+      &.activePage {
+        color: var(--yellow-500);
+      }
+
+      &:hover {
+        text-decoration: underline;
+        filter: brightness(0.8);
+        // background: var(--gray-300);
+        // color: var(--gray-300);
+      }
+    }
+  }
 }
