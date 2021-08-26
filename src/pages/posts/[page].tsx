@@ -5,9 +5,7 @@ import { RichText } from 'prismic-dom';
 import Prismic from '@prismicio/client';
 import styles from './styles.module.scss';
 import Head from 'next/head';
-import { ReactElement, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/client';
-import { useRouter } from 'next/dist/client/router';
 
 interface PostsProps {
   paginas: [
@@ -29,9 +27,6 @@ interface PostsProps {
 export default function Posts({ paginas, posts }: PostsProps) {
   const [session] = useSession();
   // const [currentPage, setCurrentPage] = useState(0);
-
-  console.log('lalalal');
-  console.log(paginas);
 
   return (
     <>
@@ -59,7 +54,7 @@ export default function Posts({ paginas, posts }: PostsProps) {
         </div>
         <div className={styles.paginationBar}>
           {paginas.map(pagina => (
-            <Link key={pagina.page} href={pagina.page.toString()}>
+            <Link key={pagina.page} href={'/posts/' + pagina.page.toString()}>
               <a className={pagina.isActive && styles.activePage}>
                 {pagina.page}
               </a>
@@ -80,17 +75,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const PrismicClient = getPrismiscClient();
+
   const documents = await PrismicClient.query(
     Prismic.predicates.at('document.type', 'post'),
     {
       fetch: ['publication.title', 'publication.content'],
-
       pageSize: 5,
       page: params?.page,
+      orderings: '[document.last_publication_date desc]',
     }
   );
-
-  console.log(documents);
 
   const posts = documents.results.map(post => {
     3;
@@ -134,13 +128,17 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     });
   }
 
-  console.log(paginas);
-
-  return {
-    props: {
-      paginas,
-      posts,
-    },
-    revalidate: 60 * 60 * 2, // 2 hours
-  };
+  if (+params?.page > 0 && +params?.page <= documents.total_pages) {
+    return {
+      props: {
+        paginas,
+        posts,
+      },
+      revalidate: 60 * 60 * 2, // 2 hours
+    };
+  } else {
+    return {
+      notFound: true,
+    };
+  }
 };

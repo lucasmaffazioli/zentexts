@@ -44,7 +44,7 @@
 
   .paginationBar {
     max-width: 720px;
-    margin: 5rem auto 0;
+    margin: 3rem auto 0;
     display: flex;
     justify-content: center;
 
@@ -57,20 +57,19 @@
       border-radius: 50%;
       font-size: 1.25rem;
       font-weight: bold;
-      margin: 4rem 0 2rem;
-      transition: filter 0.2s;
+      margin: 0rem 0 2rem;
+      transition: 0.2s;
 
       margin-left: 0.5rem;
+      line-height: 2.2rem;
 
       &.activePage {
         color: var(--yellow-500);
       }
 
-      &:hover {
+      &:not(.activePage):hover {
         text-decoration: underline;
         filter: brightness(0.8);
-        // background: var(--gray-300);
-        // color: var(--gray-300);
       }
     }
   }
