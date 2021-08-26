@@ -5,11 +5,16 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { RichText } from 'prismic-dom';
 import { useEffect } from 'react';
+import { SubscribeButton } from '../../../components/SubscribeButton';
 import { getPrismiscClient } from '../../../services/prismic';
+import getStripeProduct from '../../../services/stripe-product';
 
 import styles from '../../posts/post.module.scss';
 
 interface PosPreviewProps {
+  product: {
+    priceId: string;
+  };
   post: {
     slug: string;
     title: string;
@@ -18,7 +23,7 @@ interface PosPreviewProps {
   };
 }
 
-export default function PostPreview({ post }: PosPreviewProps) {
+export default function PostPreview({ product, post }: PosPreviewProps) {
   const [session] = useSession();
   const router = useRouter();
 
@@ -46,9 +51,10 @@ export default function PostPreview({ post }: PosPreviewProps) {
 
           <div className={styles.continueReading}>
             Want to continue reading?
-            <Link href="">
+            <SubscribeButton priceId={product.priceId} type="preview" />
+            {/* <Link href="">
               <a>Subscribe now 🤗</a>
-            </Link>
+            </Link> */}
           </div>
         </article>
       </main>
@@ -85,8 +91,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       ),
     };
 
+    const product = await getStripeProduct();
+
     return {
-      props: { post },
+      props: { product, post },
 
       revalidate: 60 * 30, // 30 minutes
     };
