@@ -27,7 +27,7 @@ export default function Post({ post }: PostProps) {
 			</Head>
 
 			<main>
-				<Article preview={true} post={post} />
+				<Article preview={false} post={post} />
 			</main>
 		</>
 	)
@@ -59,11 +59,14 @@ export const getServerSideProps: GetServerSideProps = async ({
 				return RichText.asText(item.content)
 			})
 			.join()
+		console.log('response.data.content')
+		console.log(response.data.content)
 
 		const post = {
 			slug,
 			title: RichText.asText(response.data.title),
-			content: RichText.asHtml(response.data.content),
+			content: RichText.asText(response.data.content[0].content.splice(0, 2)),
+			// content: RichText.asHtml(response.data.content),
 			updatedAt: response.last_publication_date,
 			author: response.data.author,
 			readingTime: readingTime(allText) + ' minutes',

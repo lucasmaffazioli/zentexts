@@ -38,14 +38,18 @@ export default function Article({ post, preview }: ArticleProps) {
 				<p>{post.readingTime}</p>
 			</div>
 			<div
-				className={`${styles.postContent} ${styles.previewContent}`}
+				className={`${styles.postContent} ${
+					preview ? styles.previewContent : ''
+				}`}
 				dangerouslySetInnerHTML={{ __html: post.content }}
 			/>
-			<div className={styles.continueReading}>
-				Want to continue reading?
-				{/* <SubscribeButton priceId={product.priceId} type="preview" /> */}
-				<a>Subscribe now 🤗</a>
-			</div>
+			{preview && (
+				<div className={styles.continueReading}>
+					Want to continue reading?
+					{/* <SubscribeButton priceId={product.priceId} type="preview" /> */}
+					<a>Subscribe now 🤗</a>
+				</div>
+			)}
 		</article>
 	)
 }
