@@ -10,6 +10,7 @@ interface ArticleProps {
 		updatedAt: string
 		content: string
 		author: string
+		readingTime: string
 	}
 	preview: boolean
 }
@@ -34,7 +35,7 @@ export default function Article({ post, preview }: ArticleProps) {
 				<i>
 					<FiClock />
 				</i>
-				<p>4 min</p>
+				<p>{post.readingTime}</p>
 			</div>
 			<div
 				className={`${styles.postContent} ${styles.previewContent}`}

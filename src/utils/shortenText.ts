@@ -4,6 +4,9 @@ export default function shortenText(text: string, outputWords: number) {
 	listWords.slice(0, outputWords).forEach((word) => (shortText += word + ' '))
 	shortText = shortText.trim()
 
+	// console.log(text)
+	// console.log(listWords)
+
 	const regex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/
 	while (true) {
 		if (regex.test(shortText[shortText.length - 1])) {

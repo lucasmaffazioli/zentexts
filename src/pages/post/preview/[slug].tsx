@@ -6,9 +6,10 @@ import { RichText } from 'prismic-dom'
 import { useEffect } from 'react'
 import Article from '../../../components/Article'
 import { SubscribeButton } from '../../../components/SubscribeButton'
-import shortenText from '../../../helpers/shortenText'
+import shortenText from '../../../utils/shortenText'
 import { getPrismiscClient } from '../../../services/prismic'
 import getStripeProduct from '../../../services/stripe-product'
+import readingTime from '../../../utils/readingTime'
 
 // import styles from '../../posts/post.module.scss'
 
@@ -22,6 +23,7 @@ interface PosPreviewProps {
 		content: string
 		updatedAt: string
 		author: string
+		readingTime: string
 	}
 }
 
@@ -62,9 +64,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 	const response = await prismic.getByUID('post', String(slug), {})
 
-	// console.log(JSON.stringify(response, null, 2))
-
-	shortenText('Meu nome não é... Carlos', 4)
+	const allText = response.data.content
+		.map((item) => {
+			return RichText.asText(item.content)
+		})
+		.join()
 
 	if (response) {
 		const post = {
@@ -76,6 +80,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 			),
 			updatedAt: response.last_publication_date,
 			author: response.data.author,
+			readingTime: readingTime(allText) + ' minutes',
 		}
 
 		const product = await getStripeProduct()
