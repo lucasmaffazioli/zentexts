@@ -11,8 +11,6 @@ import { getPrismiscClient } from '../../../services/prismic'
 import getStripeProduct from '../../../services/stripe-product'
 import readingTime from '../../../utils/readingTime'
 
-// import styles from '../../posts/post.module.scss'
-
 interface PosPreviewProps {
 	product: {
 		priceId: string
@@ -44,7 +42,7 @@ export default function PostPreview({ product, post }: PosPreviewProps) {
 			</Head>
 
 			<main>
-				<Article preview={true} post={post} />
+				<Article preview={true} post={post} priceId={product.priceId} />
 			</main>
 		</>
 	)

@@ -13,9 +13,10 @@ interface ArticleProps {
 		readingTime: string
 	}
 	preview: boolean
+	priceId: string
 }
 
-export default function Article({ post, preview }: ArticleProps) {
+export default function Article({ post, preview, priceId }: ArticleProps) {
 	return (
 		<article className={styles.post}>
 			<h1>{post.title}</h1>
@@ -46,8 +47,8 @@ export default function Article({ post, preview }: ArticleProps) {
 			{preview && (
 				<div className={styles.continueReading}>
 					Want to continue reading?
-					{/* <SubscribeButton priceId={product.priceId} type="preview" /> */}
-					<a>Subscribe now 🤗</a>
+					<SubscribeButton priceId={priceId} type="preview" />
+					{/* <a>Subscribe now 🤗</a> */}
 				</div>
 			)}
 		</article>
