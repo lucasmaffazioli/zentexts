@@ -27,7 +27,7 @@ export default function Post({ post }: PostProps) {
 			</Head>
 
 			<main>
-				<Article preview={false} post={post} />
+				<Article preview={false} post={post} priceId={''} />
 			</main>
 		</>
 	)
