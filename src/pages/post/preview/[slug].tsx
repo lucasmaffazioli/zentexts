@@ -64,20 +64,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 	const response = await prismic.getByUID('post', String(slug), {})
 
-	const allText = response.data.content
-		.map((item) => {
-			return RichText.asText(item.content)
-		})
-		.join()
+	const allText = RichText.asText(response.data.content)
 
 	if (response) {
 		const post = {
 			slug,
 			title: RichText.asText(response.data.title),
-			content: shortenText(
-				RichText.asText(response.data.content[0].content.splice(0, 2)),
-				50
-			),
+			content: shortenText(RichText.asText(response.data.content), 50),
 			updatedAt: response.last_publication_date,
 			author: response.data.author,
 			readingTime: readingTime(allText) + ' minutes',

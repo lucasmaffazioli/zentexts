@@ -37,49 +37,34 @@ export const getServerSideProps: GetServerSideProps = async ({
 	req,
 	params,
 }) => {
-	console.log('getServerSideProps da post')
-	return null
-	// try {
-	// 	const session = await getSession({ req })
-	// 	const slug = params?.slug
+	const session = await getSession({ req })
+	const slug = params?.slug
 
-	// 	if (!session?.activeSubscription) {
-	// 		return {
-	// 			redirect: {
-	// 				destination: '/post/preview/' + slug,
-	// 				permanent: false,
-	// 			},
-	// 		}
-	// 	}
+	if (!session?.activeSubscription) {
+		return {
+			redirect: {
+				destination: '/post/preview/' + slug,
+				permanent: false,
+			},
+		}
+	}
 
-	// 	const prismic = getPrismiscClient(req)
+	const prismic = getPrismiscClient(req)
 
-	// 	const response = await prismic.getByUID('post', String(slug), {})
+	const response = await prismic.getByUID('post', String(slug), {})
 
-	// 	const allText = response.data.content
-	// 		.map((item) => {
-	// 			return RichText.asText(item.content)
-	// 		})
-	// 		.join()
-	// 	console.log('response.data.content')
-	// 	console.log(response.data.content)
+	const allText = RichText.asText(response.data.content)
 
-	// 	const post = {
-	// 		slug,
-	// 		title: RichText.asText(response.data.title),
-	// 		content: RichText.asText(response.data.content[0].content.splice(0, 2)),
-	// 		// content: RichText.asHtml(response.data.content),
-	// 		updatedAt: response.last_publication_date,
-	// 		author: response.data.author,
-	// 		readingTime: readingTime(allText) + ' minutes',
-	// 	}
+	const post = {
+		slug,
+		title: RichText.asText(response.data.title),
+		content: RichText.asHtml(response.data.content),
+		updatedAt: response.last_publication_date,
+		author: response.data.author,
+		readingTime: readingTime(allText) + ' minutes',
+	}
 
-	// 	return {
-	// 		props: { post },
-	// 	}
-	// } catch {
-	// 	return {
-	// 		notFound: true,
-	// 	}
-	// }
+	return {
+		props: { post },
+	}
 }

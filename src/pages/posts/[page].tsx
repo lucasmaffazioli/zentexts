@@ -108,7 +108,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	)
 
 	const posts = documents.results.map((post) => {
-		console.log(post)
+		// console.log(post)
 
 		return {
 			slug: post.uid,
