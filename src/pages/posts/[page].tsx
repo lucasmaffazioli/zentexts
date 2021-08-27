@@ -95,27 +95,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const PrismicClient = getPrismiscClient()
+	const page = +params.page ?? 1
 
 	const documents = await PrismicClient.query(
 		Prismic.predicates.at('document.type', 'post'),
 		{
-			fetch: ['publication.title', 'publication.content'],
+			fetch: ['post.title', 'post.content', 'post.author'],
 			pageSize: 5,
-			page: params?.page,
+			page: page,
 			orderings: '[document.last_publication_date desc]',
 		}
 	)
 
 	const posts = documents.results.map((post) => {
 		console.log(post)
-		// console.log(RichText.asText(post.data.content))
-		// console.log(RichText.asHtml(post.data.content))
-
-		// const allText = post.data.content
-		// 	.map((item) => {
-		// 		return RichText.asText(item.content)
-		// 	})
-		// 	.join()
 
 		return {
 			slug: post.uid,
@@ -151,4 +144,26 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 			notFound: true,
 		}
 	}
+
+	// return {
+	// 	props: {
+	// 		posts: [
+	// 			{
+	// 				slug: 'post.uid',
+	// 				title: 'ichText.asText(post.data.title)',
+	// 				excerp: 'shortenText(RichText.asText(post.data.content), 50)',
+	// 				updatedAt: 'asdsa',
+	// 				author: 'post.data.author',
+	// 				readingTime: ' minutes',
+	// 			},
+	// 		],
+	// 		paginas: [
+	// 			{
+	// 				page: 1,
+	// 				isActive: true,
+	// 			},
+	// 		],
+	// 	},
+	// 	revalidate: 60 * 60 * 2, // 2 hours
+	// }
 }
