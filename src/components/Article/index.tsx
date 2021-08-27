@@ -1,5 +1,7 @@
 import { SubscribeButton } from '../SubscribeButton'
 import styles from './styles.module.scss'
+import { format } from 'date-fns'
+import ptBR from 'date-fns/locale/pt-BR'
 
 interface ArticleProps {
 	post: {
@@ -15,7 +17,11 @@ export default function Article({ post, preview }: ArticleProps) {
 		<article className={styles.post}>
 			<h1>{post.title}</h1>
 
-			<time>{post.updatedAt}</time>
+			<time>
+				{format(new Date(post.updatedAt), 'd MMM yyyy', {
+					locale: ptBR,
+				})}
+			</time>
 			<div
 				className={`${styles.postContent} ${styles.previewContent}`}
 				dangerouslySetInnerHTML={{ __html: post.content }}
