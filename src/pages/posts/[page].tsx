@@ -6,7 +6,7 @@ import Prismic from '@prismicio/client'
 import styles from './styles.module.scss'
 import Head from 'next/head'
 import { useSession } from 'next-auth/client'
-import shortenText from '../../helpers/shortenText'
+import shortenText from '../../utils/shortenText'
 
 interface PostsProps {
 	paginas: [
