@@ -1,4 +1,5 @@
-![GitHub deployments](https://img.shields.io/github/deployments/lucasmaffazioli/zentexts/production?label=vercel&logo=vercel&logoColor=white)
+[![GitHub deployments](https://img.shields.io/github/deployments/lucasmaffazioli/zentexts/production?label=vercel&logo=vercel&logoColor=white)](https://zentexts.vercel.app/)
+
 
 # Zen Texts
 
