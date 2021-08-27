@@ -5,6 +5,7 @@ import { RichText } from 'prismic-dom'
 import Article from '../../components/Article'
 import { getPrismiscClient } from '../../services/prismic'
 import readingTime from '../../utils/readingTime'
+import Comments from '../../components/Comments'
 
 // import styles from '../posts/post.module.scss'
 
@@ -28,6 +29,7 @@ export default function Post({ post }: PostProps) {
 
 			<main>
 				<Article preview={false} post={post} priceId={''} />
+				<Comments></Comments>
 			</main>
 		</>
 	)
