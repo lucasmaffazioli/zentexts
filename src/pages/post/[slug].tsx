@@ -5,7 +5,7 @@ import { RichText } from 'prismic-dom'
 import Article from '../../components/Article'
 import { getPrismiscClient } from '../../services/prismic'
 
-import styles from '../posts/post.module.scss'
+// import styles from '../posts/post.module.scss'
 
 interface PostProps {
 	post: {
@@ -13,6 +13,7 @@ interface PostProps {
 		title: string
 		content: string
 		updatedAt: string
+		author: string
 	}
 }
 
@@ -23,7 +24,7 @@ export default function Post({ post }: PostProps) {
 				<title>{post.title} | Zen Texts</title>
 			</Head>
 
-			<main className={styles.container}>
+			<main>
 				<Article preview={true} post={post} />
 			</main>
 		</>
@@ -56,6 +57,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 			title: RichText.asText(response.data.title),
 			content: RichText.asHtml(response.data.content),
 			updatedAt: response.last_publication_date,
+			author: response.data.author,
 		}
 
 		return {

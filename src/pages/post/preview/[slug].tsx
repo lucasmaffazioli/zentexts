@@ -6,10 +6,11 @@ import { RichText } from 'prismic-dom'
 import { useEffect } from 'react'
 import Article from '../../../components/Article'
 import { SubscribeButton } from '../../../components/SubscribeButton'
+import shortenText from '../../../helpers/shortenText'
 import { getPrismiscClient } from '../../../services/prismic'
 import getStripeProduct from '../../../services/stripe-product'
 
-import styles from '../../posts/post.module.scss'
+// import styles from '../../posts/post.module.scss'
 
 interface PosPreviewProps {
 	product: {
@@ -20,6 +21,7 @@ interface PosPreviewProps {
 		title: string
 		content: string
 		updatedAt: string
+		author: string
 	}
 }
 
@@ -39,7 +41,7 @@ export default function PostPreview({ product, post }: PosPreviewProps) {
 				<title>{post.title} | Zen Texts</title>
 			</Head>
 
-			<main className={styles.container}>
+			<main>
 				<Article preview={true} post={post} />
 			</main>
 		</>
@@ -60,12 +62,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 	const response = await prismic.getByUID('post', String(slug), {})
 
+	// console.log(JSON.stringify(response, null, 2))
+
+	shortenText('Meu nome não é... Carlos', 4)
+
 	if (response) {
 		const post = {
 			slug,
 			title: RichText.asText(response.data.title),
-			content: RichText.asHtml(response.data.content.splice(0, 2)),
+			content: shortenText(
+				RichText.asText(response.data.content[0].content.splice(0, 2)),
+				50
+			),
 			updatedAt: response.last_publication_date,
+			author: response.data.author,
 		}
 
 		const product = await getStripeProduct()

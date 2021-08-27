@@ -2,20 +2,36 @@
 	max-width: 720px;
 	margin: 5rem auto 0;
 
+	.metaData {
+		margin-top: 2rem;
+		// margin-bottom: 2rem;
+		color: var(--gray-300);
+		display: flex;
+		align-items: center;
+
+		i {
+			margin-right: 0.5rem;
+
+			svg {
+				height: 1.5rem;
+				width: 1.5rem;
+			}
+		}
+
+		p {
+			margin-right: 2rem;
+			font-size: 1rem;
+			font-weight: bold;
+		}
+	}
+
 	h1 {
 		font-size: 3.5rem;
 		font-weight: 900;
 	}
 
-	time {
-		display: block;
-		font-size: 1rem;
-		color: var(--gray-300);
-		margin-top: 1.5rem;
-	}
-
 	.postContent {
-		margin-top: 2rem;
+		margin-top: 3rem;
 		line-height: 2rem;
 		font-size: 1.125rem;
 
