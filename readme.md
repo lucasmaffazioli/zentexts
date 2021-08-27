@@ -1,18 +1,19 @@
 [![GitHub deployments](https://img.shields.io/github/deployments/lucasmaffazioli/zentexts/production?label=vercel&logo=vercel&logoColor=white)](https://zentexts.vercel.app/)
 
-
 # Zen Texts
 
 Jamstack clone of Medium with these features:
 
 - Login via GitHub
-- Subscription via Sripe
+- Subscription via Stripe
 - Content creation via Prismic CMS
 - User subscription status saved on FaunaDB
 - Static Site Generation, Server Side Rendering and SPA
+- Blocked content based on subscription
 - Pagination
 - Responsive
 - Deployed on Vercel
+- Comments with Utterances
 
 https://user-images.githubusercontent.com/12513049/131080870-fa1f4e19-6cc8-4411-b82d-a1617c832c86.mp4
 

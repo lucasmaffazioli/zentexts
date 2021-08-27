@@ -1,0 +1,36 @@
+.footerContainer {
+	margin: 3rem 0 1rem;
+
+	.footerContent {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		white-space: pre;
+	}
+
+	a {
+		text-align: center;
+		color: var(--yellow-500);
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	svg {
+		color: #5ed3f3;
+		margin: 0 0 0 0.3rem;
+		animation-name: spin;
+		animation-duration: 5000ms;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+	}
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
