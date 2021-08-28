@@ -15,7 +15,11 @@ Jamstack clone of Medium with these features:
 - Deployed on Vercel
 - Comments with Utterances
 
-https://user-images.githubusercontent.com/12513049/131080870-fa1f4e19-6cc8-4411-b82d-a1617c832c86.mp4
+
+
+https://user-images.githubusercontent.com/12513049/131207256-0c963ef3-8fc1-4a8f-aa63-f8fbc48fe8db.mp4
+
+
 
 Stack: React, Next.js (SPA, SSR, SSG), NextAuth, Jamstack [Stripe, FaunaDB, Prismic CMS], SASS, CSS Modules, Axios
 
