@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest"
   },
   "dependencies": {
     "@prismicio/client": "^5.1.0",
@@ -23,7 +24,8 @@
     "react-dom": "17.0.2",
     "react-icons": "^4.2.0",
     "sass": "^1.37.5",
-    "stripe": "^8.169.0"
+    "stripe": "^8.169.0",
+    "ts-jest": "^27.0.7"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.16.0",
