@@ -24,10 +24,10 @@ describe('LoginButton component', () => {
 
 		useSessionMocked.mockReturnValueOnce([{ user: { name: 'User Lucas' } }, false])
 
-		render(
+		const { debug, getByText } = render(
 			<LoginButton />
 		)
 
-		expect(screen.getByText('User Lucas')).toBeInTheDocument()
+		expect(getByText('User Lucas')).toBeInTheDocument()
 	})
 })
