@@ -37,6 +37,14 @@
 
 		color: var(--gray-100);
 
+		a {
+			font-size: 0.8rem;
+			text-decoration: underline;
+			vertical-align: super;
+			margin-left: 0.2rem;
+			margin-right: 0.1rem;
+		}
+
 		p,
 		ul {
 			margin-bottom: 1.5rem;
